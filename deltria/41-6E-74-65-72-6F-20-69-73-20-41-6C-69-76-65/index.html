@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archive</title>
+    <title>deltria_accumulation</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,20 +11,39 @@
 
     <div class="container">
 
-        <h1>ARCHIVE ENTRY</h1>
+        <h1>deltria_accumulation</h1>
 
-        <p>
-            This page contains recovered information.
+        <p class="subtitle">
+            This page contains classified information
         </p>
 
         <hr>
 
-        <div class="lore-entry">
-            Placeholder lore dump text.
+        <div class="pdf-container glitch">
+
+            <embed
+                src="untitled.pdf#toolbar=0&navpanes=0&scrollbar=0"
+                type="application/pdf"
+                class="pdf-viewer"
+            >
+
+        </div>
+
+        <div class="audio-section">
+
+            <button id="playButton">
+                PLAY TRANSMISSION
+            </button>
+
+            <audio id="audioPlayer">
+                <source src="vs_clan_000.mp3" type="audio/mpeg">
+            </audio>
+
         </div>
 
     </div>
 
     <script src="script.js"></script>
+
 </body>
 </html>
