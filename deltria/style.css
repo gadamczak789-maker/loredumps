@@ -1,26 +1,65 @@
 body {
+
     margin: 0;
     padding: 0;
-    background: black;
 
     width: 100vw;
     height: 100vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
     overflow: hidden;
 
-    font-family: Arial, sans-serif;
+    background: black;
+
+    font-family: Courier New, monospace;
 }
 
-#message {
-    color: white;
+/* Hexadecimal text */
+
+.hexText {
+
+    position: absolute;
+
+    color: rgba(255,255,255,0.9);
+
     font-size: 2rem;
-    letter-spacing: 4px;
+
+    letter-spacing: 6px;
 
     opacity: 0;
 
-    transition: opacity 3s ease;
+    user-select: none;
+
+    pointer-events: none;
+
+    text-shadow:
+        0 0 5px rgba(255,255,255,0.3),
+        0 0 12px rgba(255,255,255,0.15);
+
+    transition: opacity 1.5s ease;
+
+    animation: flicker 0.12s infinite;
+}
+
+/* Subtle flicker */
+
+@keyframes flicker {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.92;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Random body glitches */
+
+body.glitch {
+
+    filter: brightness(1.08);
 }
