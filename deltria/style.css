@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    font-family: Arial, sans-serif;
+}
+
+#message {
+    color: white;
+    font-size: 2rem;
+    letter-spacing: 4px;
+
+    opacity: 0;
+
+    transition: opacity 3s ease;
+}
