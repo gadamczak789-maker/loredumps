@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 40px;
+
+    background: #050505;
+    color: #d0d0d0;
+
+    font-family: Courier New, monospace;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+h1 {
+    color: white;
+    letter-spacing: 5px;
+}
+
+hr {
+    border: 1px solid #222;
+    margin: 30px 0;
+}
+
+.lore-entry {
+    line-height: 1.8;
+}
