@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Deltria Calendar</title>
+
+    <link rel="stylesheet" href="../../global.css">
+
+    <style>
+
+        body {
+
+            overflow-y: auto;
+
+            padding: 40px;
+
+            box-sizing: border-box;
+        }
+
+        .calendarContainer {
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+        .seasonTitle {
+
+            font-size: 3rem;
+
+            letter-spacing: 6px;
+
+            margin-bottom: 10px;
+        }
+
+        .moonDisplay {
+
+            color: #999;
+
+            margin-bottom: 40px;
+
+            letter-spacing: 3px;
+        }
+
+        .calendarGrid {
+
+            display: grid;
+
+            grid-template-columns: repeat(8, 1fr);
+
+            gap: 12px;
+        }
+
+        .dayCell {
+
+            border: 1px solid #222;
+
+            height: 70px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 1.2rem;
+
+            background: #050505;
+
+            transition: 0.3s ease;
+        }
+
+        .currentDay {
+
+            background: #3a1f00;
+
+            border: 1px solid #ff8c00;
+
+            color: #ffb347;
+
+            box-shadow:
+                0 0 10px rgba(255,140,0,0.3);
+        }
+
+        .holiday {
+
+            border-color: #666;
+        }
+
+        .holiday::after {
+
+            content: "*";
+
+            position: absolute;
+
+            margin-top: 40px;
+
+            font-size: 0.7rem;
+
+            color: #777;
+        }
+
+        .holidayList {
+
+            margin-top: 60px;
+        }
+
+        .holidayItem {
+
+            margin-bottom: 12px;
+
+            color: #aaa;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="calendarContainer">
+
+        <div class="seasonTitle" id="seasonTitle"></div>
+
+        <div class="moonDisplay" id="moonDisplay"></div>
+
+        <div class="calendarGrid" id="calendarGrid"></div>
+
+        <div class="holidayList" id="holidayList"></div>
+
+    </div>
+
+    <script>
+
+        /* =========================
+           CHANGE THESE VALUES
+        ========================= */
+
+        const currentSeason = "Juda";
+        const currentDay = 1;
+
+        /* ========================= */
+
+        const seasons = {
+
+            "Nuzec": {
+                duration: 97,
+                moons: "Nuz",
+                holidays: {
+                    1: [
+                        "The Rising Dawn",
+                        "The Day of Freedom"
+                    ],
+                    49: ["Heaven’s Gazing"],
+                    52: ["The Day of Death"]
+                }
+            },
+
+            "Stinuz": {
+                duration: 88,
+                moons: "Nuz and Sti",
+                holidays: {
+                    32: ["The Lost Destination"],
+                    52: ["The Day of Death"],
+                    63: ["Harvlec"],
+                    88: ["Juda Solstice"]
+                }
+            },
+
+            "Juda": {
+                duration: 98,
+                moons: "Ju",
+                holidays: {
+                    6: ["The Annual Assemblage of The Glorified"],
+                    27: ["The First Flight"],
+                    34: ["Feltrusem"],
+                    52: ["The Day of Death"],
+                    78: ["Nishilak Fustryn"]
+                }
+            },
+
+            "Stiju": {
+                duration: 79,
+                moons: "Ju and Sti",
+                holidays: {
+                    1: ["The Day of Memory"],
+                    47: ["The Darkest Night"],
+                    52: ["The Day of Death"],
+                    79: ["The Bearing"]
+                }
+            }
+        };
+
+        const data = seasons[currentSeason];
+
+        document.getElementById("seasonTitle")
+            .textContent = currentSeason;
+
+        document.getElementById("moonDisplay")
+            .textContent = `Moon(s): ${data.moons}`;
+
+        const grid =
+            document.getElementById("calendarGrid");
+
+        for (let i = 1; i <= data.duration; i++) {
+
+            const cell =
+                document.createElement("div");
+
+            cell.classList.add("dayCell");
+
+            if (i === currentDay) {
+                cell.classList.add("currentDay");
+            }
+
+            if (data.holidays[i]) {
+                cell.classList.add("holiday");
+            }
+
+            cell.textContent = i;
+
+            grid.appendChild(cell);
+        }
+
+        const holidayList =
+            document.getElementById("holidayList");
+
+        for (const day in data.holidays) {
+
+            const item =
+                document.createElement("div");
+
+            item.classList.add("holidayItem");
+
+            item.textContent =
+                `${day} — ${data.holidays[day].join(", ")}`;
+
+            holidayList.appendChild(item);
+        }
+
+    </script>
+
+</body>
+</html>
