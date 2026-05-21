@@ -13,106 +13,54 @@
 
         body {
 
-            overflow-y: auto;
-        }
-
-        .galleryContainer {
-
-            width: 100%;
-
-            display: flex;
-            flex-direction: column;
-
-            align-items: center;
-
-            gap: 60px;
-
-            padding: 60px 0;
-        }
-
-        .glitchImageContainer {
-
-            position: relative;
-
-            width: 80%;
-            max-width: 900px;
-
             overflow: hidden;
-
-            border: 1px solid #111;
 
             background: black;
         }
 
+        .imageStage {
+
+            position: relative;
+
+            width: 100vw;
+            height: 100vh;
+
+            overflow: hidden;
+        }
+
         .glitchImage {
 
-            width: 100%;
+            position: absolute;
 
-            display: block;
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            max-width: 85%;
+            max-height: 85%;
+
+            opacity: 0;
+
+            transition: opacity 1.8s ease;
 
             filter:
                 grayscale(1)
                 contrast(1.35)
                 brightness(0.9);
 
-            animation: imageFlicker 0.12s infinite;
+            animation:
+                imageFlicker 0.12s infinite;
         }
 
-        .glitchImageContainer::before,
-        .glitchImageContainer::after {
+        .glitchImage.active {
+
+            opacity: 0.92;
+        }
+
+        .glitchImage::after {
 
             content: "";
-
-            position: absolute;
-
-            top: 0;
-            left: 0;
-
-            width: 100%;
-            height: 100%;
-
-            pointer-events: none;
-
-            background:
-                repeating-linear-gradient(
-                    0deg,
-                    rgba(255,255,255,0.02),
-                    rgba(255,255,255,0.02) 1px,
-                    transparent 1px,
-                    transparent 3px
-                );
-
-            mix-blend-mode: screen;
-        }
-
-        .glitchImageContainer::after {
-
-            animation: imageShift 0.18s infinite;
-
-            opacity: 0.12;
-        }
-
-        @keyframes imageShift {
-
-            0% {
-                transform: translate(0px, 0px);
-            }
-
-            25% {
-                transform: translate(3px, -2px);
-            }
-
-            50% {
-                transform: translate(-3px, 1px);
-            }
-
-            75% {
-                transform: translate(2px, 2px);
-            }
-
-            100% {
-                transform: translate(0px, 0px);
-            }
         }
 
         @keyframes imageFlicker {
@@ -130,30 +78,74 @@
             }
         }
 
+        body.glitch {
+
+            filter: brightness(1.08);
+        }
+
     </style>
 
 </head>
 <body>
 
-    <div class="galleryContainer">
+    <div class="imageStage">
 
-        <div class="glitchImageContainer">
-            <img src="histeaching.jpg" class="glitchImage">
-        </div>
-
-        <div class="glitchImageContainer">
-            <img src="Letter024.jpg" class="glitchImage">
-        </div>
-
-        <div class="glitchImageContainer">
-            <img src="Assemblage_of_the_glorified.jpg" class="glitchImage">
-        </div>
-
-        <div class="glitchImageContainer">
-            <img src="Page-7.jpg" class="glitchImage">
-        </div>
+        <img src="histeaching.jpg" class="glitchImage">
+        <img src="Letter024.jpg" class="glitchImage">
+        <img src="Assemblage_of_the_glorified.jpg" class="glitchImage">
+        <img src="Page-7.jpg" class="glitchImage">
 
     </div>
+
+    <script>
+
+        const images = document.querySelectorAll(".glitchImage");
+
+        let currentImage = null;
+
+        function cycleImages() {
+
+            if (currentImage) {
+                currentImage.classList.remove("active");
+            }
+
+            const randomImage =
+                images[Math.floor(Math.random() * images.length)];
+
+            currentImage = randomImage;
+
+            currentImage.classList.add("active");
+
+            const visibleTime =
+                2500 + Math.random() * 3000;
+
+            setTimeout(() => {
+
+                currentImage.classList.remove("active");
+
+            }, visibleTime);
+
+            const nextTime =
+                5000 + Math.random() * 5000;
+
+            setTimeout(cycleImages, nextTime);
+        }
+
+        setTimeout(cycleImages, 3000);
+
+        /* Random screen glitches */
+
+        setInterval(() => {
+
+            document.body.classList.add("glitch");
+
+            setTimeout(() => {
+                document.body.classList.remove("glitch");
+            }, 120);
+
+        }, 4000 + Math.random() * 4000);
+
+    </script>
 
 </body>
 </html>
