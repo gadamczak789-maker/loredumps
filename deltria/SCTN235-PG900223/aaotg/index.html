@@ -11,84 +11,99 @@
 
     <style>
 
-        body {
+    body {
 
-            margin: 0;
-            padding: 0;
+        margin: 0;
+        padding: 0;
 
-            width: 100vw;
-            height: 100vh;
+        width: 100vw;
+        height: 100vh;
 
-            overflow: hidden;
+        overflow: hidden;
 
-            background: black;
-        }
+        background: black;
+    }
 
-        .imageStage {
+    .imageStage {
 
-            position: relative;
+        position: relative;
 
-            width: 100vw;
-            height: 100vh;
+        width: 100vw;
+        height: 100vh;
 
-            overflow: hidden;
-        }
+        overflow: hidden;
+    }
 
-        .glitchImage {
+    .glitchImage {
 
-            position: absolute;
+        position: absolute;
 
-            top: 50%;
-            left: 50%;
+        top: 50%;
+        left: 50%;
 
-            transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
 
-            max-width: 85%;
-            max-height: 85%;
+        max-width: 85%;
+        max-height: 85%;
 
-            object-fit: contain;
+        object-fit: contain;
 
-            opacity: 0;
+        opacity: 0;
 
-            pointer-events: none;
+        pointer-events: none;
 
-            transition: opacity 1.5s ease;
+        transition: opacity 1.5s ease;
 
+        filter:
+            grayscale(1)
+            contrast(1.35)
+            brightness(0.9);
+
+        /* IMPORTANT */
+
+        visibility: hidden;
+    }
+
+    .glitchImage.active {
+
+        opacity: 0.92;
+
+        visibility: visible;
+
+        animation:
+            activeFlicker 0.12s infinite;
+    }
+
+    @keyframes activeFlicker {
+
+        0% {
             filter:
                 grayscale(1)
                 contrast(1.35)
                 brightness(0.9);
-
-            animation:
-                imageFlicker 0.12s infinite;
         }
 
-        .glitchImage.active {
-
-            opacity: 0.92;
+        50% {
+            filter:
+                grayscale(1)
+                contrast(1.45)
+                brightness(1);
         }
 
-        @keyframes imageFlicker {
-
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.96;
-            }
-
-            100% {
-                opacity: 1;
-            }
+        100% {
+            filter:
+                grayscale(1)
+                contrast(1.35)
+                brightness(0.9);
         }
+    }
 
-        body.glitch {
+    body.glitch {
 
-            filter: brightness(1.08);
-        }
+        filter: brightness(1.08);
+    }
 
-    </style>
+</style>
 
 </head>
 <body>
@@ -104,78 +119,78 @@
 
     <script>
 
-        const images =
-            document.querySelectorAll(".glitchImage");
+    const images =
+        document.querySelectorAll(".glitchImage");
 
-        let currentIndex = -1;
+    let currentIndex = -1;
 
-        function showRandomImage() {
+    function showRandomImage() {
 
-            /* Hide current image */
+        /* Hide ALL images first */
 
-            if (currentIndex >= 0) {
+        images.forEach(img => {
 
-                images[currentIndex]
-                    .classList.remove("active");
-            }
+            img.classList.remove("active");
 
-            /* Pick new image */
+        });
 
-            let nextIndex;
+        /* Pick a new image */
 
-            do {
+        let nextIndex;
 
-                nextIndex =
-                    Math.floor(Math.random() * images.length);
+        do {
 
-            } while (
-                nextIndex === currentIndex
-            );
+            nextIndex =
+                Math.floor(Math.random() * images.length);
 
-            currentIndex = nextIndex;
+        } while (
+            nextIndex === currentIndex
+        );
 
-            /* Small delay before new image appears */
+        currentIndex = nextIndex;
 
-            setTimeout(() => {
+        /* Delay before showing */
 
-                images[currentIndex]
-                    .classList.add("active");
+        setTimeout(() => {
 
-            }, 1200);
+            images[currentIndex]
+                .classList.add("active");
 
-            /* Hide after visible duration */
+        }, 1000);
 
-            setTimeout(() => {
+        /* Hide after a few seconds */
 
-                images[currentIndex]
-                    .classList.remove("active");
+        setTimeout(() => {
 
-            }, 5200);
+            images[currentIndex]
+                .classList.remove("active");
 
-            /* Restart cycle */
+        }, 5000);
 
-            setTimeout(showRandomImage, 8000);
-        }
+        /* Repeat cycle */
 
-        /* Initial start delay */
+        setTimeout(showRandomImage, 8000);
+    }
 
-        setTimeout(showRandomImage, 2000);
+    /* Initial delay */
 
-        /* Random screen glitches */
+    setTimeout(showRandomImage, 2000);
 
-        setInterval(() => {
+    /* Random screen glitches */
 
-            document.body.classList.add("glitch");
+    setInterval(() => {
 
-            setTimeout(() => {
+        document.body.classList.add("glitch");
 
-                document.body.classList.remove("glitch");
+        setTimeout(() => {
 
-            }, 120);
+            document.body.classList.remove("glitch");
 
-        }, 4000 + Math.random() * 4000);
+        }, 120);
 
-    </script>
+    }, 4000 + Math.random() * 4000);
+
+</script>
 
 </body>
 </html>
