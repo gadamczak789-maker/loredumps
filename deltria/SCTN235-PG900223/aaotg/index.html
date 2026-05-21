@@ -13,6 +13,12 @@
 
         body {
 
+            margin: 0;
+            padding: 0;
+
+            width: 100vw;
+            height: 100vh;
+
             overflow: hidden;
 
             background: black;
@@ -40,9 +46,13 @@
             max-width: 85%;
             max-height: 85%;
 
+            object-fit: contain;
+
             opacity: 0;
 
-            transition: opacity 1.8s ease;
+            pointer-events: none;
+
+            transition: opacity 1.5s ease;
 
             filter:
                 grayscale(1)
@@ -56,11 +66,6 @@
         .glitchImage.active {
 
             opacity: 0.92;
-        }
-
-        .glitchImage::after {
-
-            content: "";
         }
 
         @keyframes imageFlicker {
@@ -99,39 +104,62 @@
 
     <script>
 
-        const images = document.querySelectorAll(".glitchImage");
+        const images =
+            document.querySelectorAll(".glitchImage");
 
-        let currentImage = null;
+        let currentIndex = -1;
 
-        function cycleImages() {
+        function showRandomImage() {
 
-            if (currentImage) {
-                currentImage.classList.remove("active");
+            /* Hide current image */
+
+            if (currentIndex >= 0) {
+
+                images[currentIndex]
+                    .classList.remove("active");
             }
 
-            const randomImage =
-                images[Math.floor(Math.random() * images.length)];
+            /* Pick new image */
 
-            currentImage = randomImage;
+            let nextIndex;
 
-            currentImage.classList.add("active");
+            do {
 
-            const visibleTime =
-                2500 + Math.random() * 3000;
+                nextIndex =
+                    Math.floor(Math.random() * images.length);
+
+            } while (
+                nextIndex === currentIndex
+            );
+
+            currentIndex = nextIndex;
+
+            /* Small delay before new image appears */
 
             setTimeout(() => {
 
-                currentImage.classList.remove("active");
+                images[currentIndex]
+                    .classList.add("active");
 
-            }, visibleTime);
+            }, 1200);
 
-            const nextTime =
-                5000 + Math.random() * 5000;
+            /* Hide after visible duration */
 
-            setTimeout(cycleImages, nextTime);
+            setTimeout(() => {
+
+                images[currentIndex]
+                    .classList.remove("active");
+
+            }, 5200);
+
+            /* Restart cycle */
+
+            setTimeout(showRandomImage, 8000);
         }
 
-        setTimeout(cycleImages, 3000);
+        /* Initial start delay */
+
+        setTimeout(showRandomImage, 2000);
 
         /* Random screen glitches */
 
@@ -140,7 +168,9 @@
             document.body.classList.add("glitch");
 
             setTimeout(() => {
+
                 document.body.classList.remove("glitch");
+
             }, 120);
 
         }, 4000 + Math.random() * 4000);
