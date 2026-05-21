@@ -9,16 +9,103 @@
 
     <link rel="stylesheet" href="../../global.css">
 
+    <style>
+
+        .incidentContainer {
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 40px;
+
+            box-sizing: border-box;
+
+            position: relative;
+        }
+
+        .calendarLink {
+
+            color: rgba(255,255,255,0.85);
+
+            font-size: 2rem;
+
+            letter-spacing: 12px;
+
+            text-decoration: none;
+
+            transition: 0.3s ease;
+        }
+
+        .calendarLink:hover {
+
+            opacity: 0.6;
+        }
+
+        .eyesImage {
+
+            max-width: 500px;
+            width: 80%;
+
+            opacity: 0.92;
+
+            filter:
+                grayscale(1)
+                contrast(1.2)
+                brightness(0.9);
+        }
+
+        .hiddenAAOTG {
+
+            position: absolute;
+
+            bottom: 12px;
+            right: 18px;
+
+            font-size: 0.55rem;
+
+            color: #050505;
+
+            text-decoration: none;
+
+            letter-spacing: 2px;
+        }
+
+        .hiddenAAOTG:hover {
+
+            color: #111;
+        }
+
+    </style>
+
 </head>
 <body>
 
-    <div class="pageContainer">
+    <div class="incidentContainer">
 
-        <div class="mainText">
+        <a
+            class="calendarLink"
+            href="../calendar"
+        >
+            de ltr iac alen dar
+        </a>
 
-            INCIDENT LOG ARCHIVED
+        <img
+            src="theeyes.jpg"
+            class="eyesImage"
+        >
 
-        </div>
+        <a
+            class="hiddenAAOTG"
+            href="./aaotg"
+        >
+            83-STINUZ-2.ndmoon
+        </a>
 
     </div>
 
